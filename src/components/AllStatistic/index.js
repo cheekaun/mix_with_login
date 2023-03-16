@@ -17,6 +17,8 @@ import { BsCurrencyBitcoin } from 'react-icons/bs'
 import { FaUserFriends } from 'react-icons/fa'
 
 import axios from 'axios';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { useRef } from 'react';
 
 export default function AllStatistic() {
 
@@ -25,7 +27,51 @@ export default function AllStatistic() {
     const [stationID, setstationID] = useState("");
     const [ChooseMonth, setChooseMonth] = useState("");
     const [ChooseYear, setChooseYear] = useState("");
+    
+    
     const [Allstation, setAllstation] = useState([]);
+
+    /// กรณีทำกรอกแบบแยกทุกตัวไม่ได้
+    const [AllMonth, setAllMonth] = useState([]);
+    const [AllYear, setAllYear] = useState([]);
+    useEffect(() => {
+        
+        axios.get('http://localhost:5000/api/GetAllYear?userid='+userid,             
+        )
+        .then(respone => {
+            setAllYear(respone.data.results)
+            
+            
+        })
+    },[])
+    console.log(AllYear)
+
+    useEffect(() => {
+        
+        axios.get('http://localhost:5000/api/GetAllMonth?userid='+userid,            
+        )
+        .then(respone => {
+            setAllMonth(respone.data.results)
+            
+            
+        })
+    },[])
+    console.log(AllMonth)
+    
+    const [Data, setData] = useState([]);
+
+    const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
+    useEffect(() => {
+        
+        axios.get('http://localhost:5000/api/MakeGraph?userid='+userid+'&stationID='+stationID,   
+        )
+        .then(respone => {
+          setData(respone.data.results)
+            
+        })
+      },[])
+      console.log(Data);
     
 
     const handleChangeStation = (e) => {
@@ -49,10 +95,11 @@ export default function AllStatistic() {
         )
         .then(respone => {
             setAllstation(respone.data.results)
-            console.log("use Effect 1 Called");
             
         })
-      },[])
+    },[])
+
+    
 
     console.log(Allstation);
 
@@ -150,7 +197,7 @@ export default function AllStatistic() {
                         </div>
                     </div>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-                    <InputLabel id="demo-simple-select-filled-label">เลือกสถานี</InputLabel>
+                    <InputLabel id="demo-simple-select-filled-label">เลือกปี</InputLabel>
                         <Select
                         labelId="demo-simple-select-filled-label"
                         id="demo-simple-select-filled"
@@ -160,13 +207,13 @@ export default function AllStatistic() {
                         
 
                             <MenuItem value="">
-                                <em>ทุกสถานี</em>
+                                <em>ทุกปี</em>
                             </MenuItem>
                             
                             {
-                                Allstation.map (content =>(
+                                AllYear.map (content =>(
                                     
-                                    <MenuItem value={content.id} key={content.id} > {content.stationName}</MenuItem>
+                                    <MenuItem value={content.Year} key={content.id} > {content.Year}</MenuItem>
                                     
                                 ))
                             }
@@ -180,23 +227,22 @@ export default function AllStatistic() {
                         </div>
                     </div>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-                    <InputLabel id="demo-simple-select-filled-label">เลือกสถานี</InputLabel>
+                    <InputLabel id="demo-simple-select-filled-label">เลือกเดือน</InputLabel>
                         <Select
                         labelId="demo-simple-select-filled-label"
                         id="demo-simple-select-filled"
                         value={ChooseMonth}
                         onChange={handleChangeMonth}
-                    >
+                        >
                         
-
                             <MenuItem value="">
-                                <em>ทุกสถานี</em>
+                                <em>ทุกเดือน</em>
                             </MenuItem>
                             
                             {
-                                Allstation.map (content =>(
+                                AllMonth.map (content =>(
                                     
-                                    <MenuItem value={content.id} key={content.id} > {content.stationName}</MenuItem>
+                                    <MenuItem value={content.Month} key={content.id} > {content.Month}</MenuItem>
                                     
                                 ))
                             }
@@ -250,14 +296,58 @@ export default function AllStatistic() {
             </Grid>
 
             <Grid item xs = {8}>
-                <Item>
-                            <div> Graph 1 is Here</div>
+                <Item >
+                    {/* <div> Graph 1 is Here</div> */}
+                        <div>
+
+                            {/* <LineChart width={500} height={300} data={Data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                                <Line type="monotone" dataKey="S_Income" stroke="#8884d8" />
+                                <CartesianGrid stroke="#ccc" strokeDasharray="0 0" />
+                                <XAxis dataKey={"Day"} />
+                                <YAxis />
+                                <Tooltip />
+                            </LineChart> */}
+
+                            <LineChart width={windowSize.current[0]/3+windowSize.current[0]/20} height={windowSize.current[1]/3} data={Data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                                <Line type="monotone" dataKey="S_Income" stroke="#8884d8" />
+                                <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                                <XAxis dataKey={"Day"} />
+                                <YAxis />
+                                <Tooltip />
+                            </LineChart>
+
+
+
+                        </div>
+
+                        <div style={{ height: 10, width: '100%', justifyContent: 'center'} }>
+
+                        </div>
+
+                        <div>กราฟเปรียบเทียบรายได้</div>
                 </Item>
             </Grid>
 
             <Grid item xs = {8}>
                 <Item>
-                            <div> Graph 2 is Here</div>
+                    {/* <div> Graph 2 is Here</div> */}
+                        <div>
+
+                            <LineChart width={windowSize.current[0]/3+windowSize.current[0]/20} height={windowSize.current[1]/3} data={Data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+                                <Line type="monotone" dataKey="S_Income" stroke="#8884d8" />
+                                <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                                <XAxis dataKey={"Day"} />
+                                <YAxis />
+                                <Tooltip />
+                            </LineChart>
+
+                        </div>
+
+                        <div style={{ height: 10, width: '100%', justifyContent: 'center'} }>
+
+                        </div>
+
+                        <div>กราฟเปรียบเทียบผู้ใช้</div>
                 </Item>
             </Grid>
 
