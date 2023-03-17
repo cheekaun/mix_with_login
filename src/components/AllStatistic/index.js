@@ -64,34 +64,53 @@ export default function AllStatistic() {
 
     useEffect(() => {
         
-        axios.get('http://localhost:5000/api/MakeGraph?userid='+userid+'&stationID='+stationID,   
+        axios.get('http://localhost:5000/api/MakeGraph?userid='+userid+'&stationID='+stationID+'&Year='+ChooseYear+'&Month='+ChooseMonth,
         )
         .then(respone => {
           setData(respone.data.results)
             
         })
-      },[])
+      },[stationID,ChooseMonth,ChooseYear])
       console.log(Data);
     
 
     const handleChangeStation = (e) => {
         console.log(stationID);
         setstationID(e.target.value);
+        if(e.target.value === ""){
+            console.log("if")
+            setChooseYear("")
+            setChooseMonth("")
+        }
     };
 
     const handleChangeYear = (e) => {
         console.log(ChooseYear);
         setChooseYear(e.target.value);
+        if(stationID === ""){
+            setChooseYear("")
+        }
+
+        if(e.target.value === ""){
+            setChooseMonth("")
+        }
     };
 
     const handleChangeMonth = (e) => {
         console.log(ChooseMonth);
         setChooseMonth(e.target.value);
+        if(stationID === "" || ChooseYear===""){
+            setChooseMonth("")
+        }
     };
+
+    const DefaultState = () => {
+        setstationID("")
+    }
 
     useEffect(() => {
         
-        axios.get('http://localhost:5000/api/GetAllStation?userid='+userid,             ///////// ใช้ได้อยู่
+        axios.get('http://localhost:5000/api/GetAllStation?userid='+userid          ///////// ใช้ได้อยู่
         )
         .then(respone => {
             setAllstation(respone.data.results)
@@ -99,6 +118,30 @@ export default function AllStatistic() {
         })
     },[])
 
+    // const [Image,setImage] = useState([])
+    // useEffect(() => {
+        
+    //     axios.get('http://localhost:5000/api/test_image',            
+    //     )
+    //     .then(respone => {
+    //         setImage(respone)
+    //     })
+    // },[])
+    // console.log(Image)
+
+
+        const [img, setImg] = useState();
+
+        const fetchImage = async () => {
+            const res = await fetch('http://localhost:5000/api/test_image');
+            const imageBlob = await res.blob();
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+            setImg(imageObjectURL);
+        };
+
+        useEffect(() => {
+            fetchImage();
+        }, []);
     
 
     console.log(Allstation);
@@ -116,7 +159,10 @@ export default function AllStatistic() {
     const num = 70
 
     return(
+        
     <div>
+        
+        <img src={img} alt="icons" />
         <Grid container rowSpacing={1} columnSpacing={2} columns={16}>
 
             <Grid item xs={16}>
@@ -191,6 +237,46 @@ export default function AllStatistic() {
                         </Select>
                     </FormControl>
                     
+                    {/* {
+                        stationID !== "" ? (
+                    <>
+                        <div className='flex items-center' style={{fontSize: '20px', color: '#000000' , justifyContent:'left'} }>
+                            <div>
+                                เลือกปี
+                            </div>
+                        </div>
+                        <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+                        <InputLabel id="demo-simple-select-filled-label">เลือกปี</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-filled-label"
+                            id="demo-simple-select-filled"
+                            value={ChooseYear}
+                            onChange={handleChangeYear}
+                        >
+                            
+
+                                <MenuItem value="">
+                                    <em>ทุกปี</em>
+                                </MenuItem>
+                                
+                                {
+                                    AllYear.map (content =>(
+                                        
+                                        <MenuItem value={content.Year} key={content.id} > {content.Year}</MenuItem>
+                                        
+                                    ))
+                                }
+
+                            </Select>
+                        </FormControl>
+                    </>
+                        ) : (
+                            
+                            setChooseYear("")
+                           
+                        )
+                    } */}
+
                     <div className='flex items-center' style={{fontSize: '20px', color: '#000000' , justifyContent:'left'} }>
                         <div>
                             เลือกปี
@@ -311,7 +397,8 @@ export default function AllStatistic() {
                             <LineChart width={windowSize.current[0]/3+windowSize.current[0]/20} height={windowSize.current[1]/3} data={Data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
                                 <Line type="monotone" dataKey="S_Income" stroke="#8884d8" />
                                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                                <XAxis dataKey={"Day"} />
+                                {/* <XAxis dataKey={"Day"} /> */}
+                                <XAxis dataKey={ChooseMonth !== "" ? "Day" : ChooseYear !== "" ? "Month" : "Year"} />
                                 <YAxis />
                                 <Tooltip />
                             </LineChart>
@@ -329,14 +416,15 @@ export default function AllStatistic() {
             </Grid>
 
             <Grid item xs = {8}>
+                
                 <Item>
                     {/* <div> Graph 2 is Here</div> */}
                         <div>
 
                             <LineChart width={windowSize.current[0]/3+windowSize.current[0]/20} height={windowSize.current[1]/3} data={Data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-                                <Line type="monotone" dataKey="S_Income" stroke="#8884d8" />
+                                <Line type="monotone" dataKey="usetime" stroke="#8884d8" />
                                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-                                <XAxis dataKey={"Day"} />
+                                <XAxis dataKey={ChooseMonth !== "" ? "Day" : ChooseYear !== "" ? "Month" : "Year"} />
                                 <YAxis />
                                 <Tooltip />
                             </LineChart>
