@@ -35,7 +35,7 @@ const Item = styled(Paper)(({ theme }) => ({
     //         { id:"1",ChargeTypePicture: "test1", ChargeTypeName: 'test2'},
     // ];
 
-function StationInfomation() {
+function StationInfomation(props) {
 
     const [data, setData] = useState([]);
     const {userid,stationID} = useParams()

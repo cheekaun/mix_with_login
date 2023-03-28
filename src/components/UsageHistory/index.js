@@ -17,10 +17,11 @@ import axios from 'axios';
 import { Avatar } from '@mui/material';
 import { BsPlugFill ,BsCurrencyBitcoin } from 'react-icons/bs'
 
-export default function UsageHistory (){
+export default function UsageHistory (props){
 
 
-    const userid = 3
+    // const userid = 3
+    const userid = props.userid
 
     const [stationID, setstationID] = useState("");
     const [Allstation, setAllstation] = useState([]);

@@ -12,9 +12,10 @@ import axios from 'axios';
 
 import {RiFileList3Line} from 'react-icons/ri'
 
-function YourList () {
+function YourList (props) {
 
-  const userid = 3   //////// Test userID
+  // const userid = 3   //////// Test userID
+  const userid = props.userid
   
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 ,headerAlign: 'center', align:'center', menubar:'disable'},

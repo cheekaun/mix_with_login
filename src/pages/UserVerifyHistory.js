@@ -1,12 +1,12 @@
 import React from "react";
 import UserVerify from "../components/UserVerifyHistory"
 
-const UserVerifyHistory = () => {
+const UserVerifyHistory = (props) => {
     return (
         <React.Fragment>
             
             <section>
-            <UserVerify/>
+            <UserVerify userid={props.Userid}/>
             </section>
         </React.Fragment>
         

@@ -3,8 +3,8 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import NavPage from "./NavPage"
 
+const UseridContext = createContext();
 const MainPage = () => {
-
     return(
         
         <React.Fragment>
@@ -31,16 +31,16 @@ const MainPage = () => {
             
 
                         <div className="col-span-9 bg-white h-screen pl-2 pr-2 md:col-span-10 overflow-y-scroll">  {/* overflow-y-scroll */}
-                            <NavPage/>
+                            <NavPage userid={3}/>
                         </div>
                     </div>
                 
             </section>
 
             </div>
-            
-        </React.Fragment>
         
+        </React.Fragment>
+         
     );
 }
 // Test Add comment from github.com

@@ -1,12 +1,12 @@
 import React from "react";
 import UsageHistory from "../components/UsageHistory";
 
-const UseHistory = () => {
+const UseHistory = (props) => {
     return (
         <React.Fragment>
             
             <section>
-                <UsageHistory/>
+                <UsageHistory userid={props.Userid}/>
             </section>
         </React.Fragment>
         

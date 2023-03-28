@@ -20,9 +20,10 @@ import axios from 'axios';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { useRef } from 'react';
 
-export default function AllStatistic() {
+export default function AllStatistic(props) {
 
-    const userid = 3
+    // const userid = 3
+    const userid = props.userid
 
     const [stationID, setstationID] = useState("");
     const [ChooseMonth, setChooseMonth] = useState("");

@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { NavLink } from "react-router-dom";
 import { MdAccessTime } from 'react-icons/md'
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useContext } from 'react';
 
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -17,11 +17,12 @@ import axios from 'axios';
 import Rating from '@mui/material/Rating';
 import { Avatar } from '@mui/material';
 
-export default function UsageHistory (){
+export default function UsageHistory (props){
 
 
-    const userid = 3
-
+    // const userid = 3
+    const userid = props.userid
+    
     const [stationID, setstationID] = useState("");
     const [Allstation, setAllstation] = useState([]);
     const [ReviewData, setReviewData] = useState([]);

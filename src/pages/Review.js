@@ -2,12 +2,12 @@ import React from "react";
 
 import UserReview from "../components/UserReview";
 
-const Review = () => {
+const Review = (props) => {
     return (
         <React.Fragment>
             
             <section>
-                <UserReview/>
+                <UserReview userid={props.Userid}/>
             </section>
         </React.Fragment>
         

@@ -10,8 +10,10 @@ import Chip from "@mui/material/Chip";
 import { useRef } from 'react';
 
 
-export default function CreateStationHistoryTable (){
+export default function CreateStationHistoryTable (props){
 
+  const userid = props.userid
+  console.log(userid)
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
   const Item = styled(Paper)(({ theme }) => ({
