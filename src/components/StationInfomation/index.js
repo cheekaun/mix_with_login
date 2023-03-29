@@ -54,9 +54,19 @@ function StationInfomation(props) {
 
       console.log(data)
 
-  return (
+    const test_utility = [
+        {id:"0",name:"ห้องน้ำ"},
+        {id:"1",name:"ห้องน้ำ1"}, 
+        {id:"2",name:"ห้องน้ำ2"},        
+    ]
 
-    
+    const test_security = [
+        {id:"0",name:"กล้องวงจรปิด"},
+        {id:"1",name:"ยาม"}, 
+                
+    ]
+
+  return (
 
     <div >
         
@@ -72,24 +82,71 @@ function StationInfomation(props) {
                     <div style={{fontSize: '26px', color:'#000000'}} >หัวปลั้ก</div>
 
 
-                    <div style={{ height: 400, width: '100%', justifyContent: 'center'} }>
+                    {/* <div style={{ height: 400, width: '100%', justifyContent: 'center'} }>
                     <DataGrid
                         rows={data} 
                         columns={columns}
                         rowHeight={150}
-                        
                     />
+                    </div> */}
+                    <div style={{display:'flex', flexDirection:'column'}}>
+                        
+                        {   
+
+                            data.map( item => (
+                                
+                                <div key={item.id} style={{display:'flex', flexDirection:'row', alignItems:'center' , paddingTop:10 , paddingBottom:10}}> 
+                                    <img src ={item.ChargeTypePicture} width="10%" height="10%" />
+                                    <div style={{paddingLeft:10, fontSize:'20px' , color:'black'}}>{item.ChargeTypeName}</div>
+                                    <div style={{paddingLeft:10, fontSize:'20px' , color:'black'}}>จำนวน 3 ช่องชาร์จ</div>
+                                    <div style={{paddingLeft:10, fontSize:'20px' , color:'black'}}>ราคา xxx บาท</div>
+                                </div>
+                            ))
+                        }
                     </div>
                     
-                    <div style={{ color:'#000000'}}>
+                    <div style={{ color:'#000000',fontSize: '20px',paddingTop:10 , paddingBottom:10}}>ราคาค่าสถานที่ 0 บาท</div>
 
-                    <div style={{fontSize: '26px'}} >ประเภทสถานที่ตั้ง</div>
-                    <div style={{fontSize: '26px'}} >เบอร์โทรติดต่อ</div>
-                    <div style={{fontSize: '26px'}} >เวลาเปิดทำการ</div>
-                    <div style={{fontSize: '26px'}} >สิ่งอำนวยความสะดวก</div>
-                    <div style={{fontSize: '26px'}} >ความปลอดภัย</div>
-                    <div style={{fontSize: '26px'}} >สถานที่</div>
-                    <div style={{fontSize: '26px'}} >ช่องทางการชำระเงิน</div>
+                    <div style={{ color:'#000000',fontSize: '26px'}}>
+                    
+                        <div>ประเภทสถานที่ตั้ง</div>
+                        {
+                            <div style={{fontSize: '20px',paddingTop:10 , paddingBottom:10}}> หมู่บ้าน</div>
+                        }
+                        
+                        <div>เบอร์โทรติดต่อสถานที่ {"xxx-xxxxxxx"}</div>
+                        
+                        <div>เวลาเปิดทำการ {"XX:XX"}น. ถึง {"XX:XX"}น.</div>
+
+                        <div>สิ่งอำนวยความสะดวก</div>
+
+                        <div style={{ paddingTop:10 , paddingBottom:10}}>
+                            {
+                                test_utility.map(item => (
+                                    <div key={item.id} style={{ color:'#000000',fontSize: '20px'}}>
+                                        {item.name}
+                                    </div>
+                                ))
+                            }
+                        </div>
+
+                        <div>ความปลอดภัย</div>
+
+                        <div style={{ paddingTop:10 , paddingBottom:10}}>
+                            {
+                                test_security.map(item => (
+                                    <div key={item.id} style={{ color:'#000000',fontSize: '20px'}}>
+                                        {item.name}
+                                    </div>
+                                ))
+                            }
+                        </div>
+
+                        <div>สถานที่</div>
+                        <div style={{ paddingTop:10 , paddingBottom:10, fontSize:"20px"}}>{"214/211 รัชดาพิเษก ซอย8 กรุงเทพ 20000 ประเทศไทย"}</div>
+                        
+                        <div>ช่องทางการชำระเงิน</div>
+                        <div style={{ paddingTop:10 , paddingBottom:10, fontSize:"20px"}}>ธนาคาร {"xxxx"} หมายเลขบัญชี {"xxxx-xxxxxxxx"}</div>
 
                     </div>
 
