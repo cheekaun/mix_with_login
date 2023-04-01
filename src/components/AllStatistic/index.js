@@ -24,6 +24,7 @@ export default function AllStatistic(props) {
 
     // const userid = 3
     const userid = props.userid
+    console.log(userid)
 
     const [stationID, setstationID] = useState("");
     const [ChooseMonth, setChooseMonth] = useState("");
@@ -144,8 +145,52 @@ export default function AllStatistic(props) {
             fetchImage();
         }, []);
     
-
     console.log(Allstation);
+
+    const [Statisdata,SetStatisdata] = useState([
+        {
+          "Sun_Income": 2325159.78,
+          "Sum_user": 15202,
+          "count_day": 1461
+        }
+      ])
+
+    useEffect(() => {
+        
+        axios.get('http://localhost:5000/api/SumIncomeAndUser?userID='+userid+'&StationID='+stationID,
+        )
+        .then(respone => {
+          SetStatisdata(respone.data.results)
+            
+        })
+      },[stationID])
+    console.log(Statisdata)
+
+    useEffect(() => {
+        if(Statisdata[0].Sun_Income === null || Statisdata[0].Sum_user === null || Statisdata[0].count_day === null){
+            setsumincome(0)
+            setsumuser(0)
+            setcountday(0)
+        }else{
+            setsumincome(Statisdata[0].Sun_Income)
+            setsumuser(Statisdata[0].Sum_user)
+            setcountday(Statisdata[0].count_day)
+        }
+        
+      },[Statisdata])
+
+    const [sumincome,setsumincome] = useState(1)
+    const [sumuser,setsumuser] = useState(1)
+    const [countday,setcountday] = useState(1)
+    
+
+    // SetStatisdata( [{
+    //     "Sun_Income": 2325159.78,
+    //     "Sum_user": 15202,
+    //     "count_day": 1461
+    //   }])
+   
+
 
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -157,13 +202,15 @@ export default function AllStatistic(props) {
         overflowX : 'auto'
     }));
 
+    
+
     const num = 70
 
     return(
         
     <div>
         
-        <img src={img} alt="icons" />
+        {/* <img src={img} alt="icons" /> */}
         <Grid container rowSpacing={1} columnSpacing={2} columns={16}>
 
             <Grid item xs={16}>
@@ -348,13 +395,13 @@ export default function AllStatistic(props) {
                 <div  style={{display: 'flex' , flexDirection: 'column', justifyContent:'center', textAlign: 'left'}}>
                             <div className="flex items-center"style={{display: 'flex' , flexDirection: 'row'}}>
                                 <div style={{fontSize:50}}><BsCurrencyBitcoin/></div>
-                                <div style={{fontSize:50 , fontWeight: 500}}>10268.00</div>
+                                <div style={{fontSize:50 , fontWeight: 500}}>{sumincome}</div>
                             </div>
                             <div style={{}}>รายได้รวม</div>
 
                             <div className="flex items-center"style={{display: 'flex' , flexDirection: 'row'}}>
                                 <div style={{fontSize:50}}><FaUserFriends/></div>
-                                <div style={{fontSize:50, fontWeight: 500}}>1000</div>
+                                <div style={{fontSize:50, fontWeight: 500}}>{sumuser}</div>
                             </div>
                             <div style={{}}>จำนวนยอดผู้ใช้</div>
                         </div>
@@ -367,7 +414,7 @@ export default function AllStatistic(props) {
                             <div>รายได้เฉลี่ย</div>
                             <div className="flex items-center"style={{display: 'flex' , flexDirection: 'row'}}>
                                 <div style={{fontSize:50}}><BsCurrencyBitcoin/></div>
-                                <div style={{ fontSize:50,fontWeight: 500}}>{num} / เดือน</div>
+                                <div style={{ fontSize:50,fontWeight: 500}}>{(sumincome/countday*30).toFixed(2)} / เดือน</div>
                                 <div style={{ fontSize:50,fontWeight: 500}}> </div>
                             </div>
                             
@@ -427,7 +474,7 @@ export default function AllStatistic(props) {
                                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
                                 <XAxis dataKey={ChooseMonth !== "" ? "Day" : ChooseYear !== "" ? "Month" : "Year"} />
                                 <YAxis />
-                                <Tooltip />
+                                <Tooltip label={"รายได้"}/>
                             </LineChart>
 
                         </div>

@@ -24,6 +24,7 @@ const Navbar = (props) => {
                     <Route path="/list" element={<List Userid = {props.userid}/>} />
                     <Route path="/list/StationInfo/:userid/:stationID" element={<StationInfo Userid = {props.userid}/>} />
                     <Route path="/history" element={<Statistic Userid = {props.userid}/>} />
+                    {/* <Route path="/history" element={<UseHistory Userid = {props.userid}/>} /> */}
                     <Route path="/history/UseHistory" element={<UseHistory Userid = {props.userid}/>} />
                     <Route path="/history/UserReview" element={<Review Userid = {props.userid}/>} />
                 </Routes>
