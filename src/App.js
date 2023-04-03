@@ -10,7 +10,7 @@ function App() {
     
      <React.Fragment>
       <BrowserRouter>
-        <MainPage/>
+        <LoginPage/>
       </BrowserRouter>
      </React.Fragment>
     

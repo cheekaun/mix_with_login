@@ -43,7 +43,7 @@ function StationInfomation(props) {
     const {userid,stationID} = useParams()
     console.log(userid)
     console.log(stationID)
-    
+    const im = 5
 
     useEffect(() => {
         // axios.get('http://localhost:5000/api/GetStationInfo?userid='+userid ,
@@ -160,81 +160,121 @@ function StationInfomation(props) {
 
 
             </Grid>
-
-           
+            
 
             {/* <Grid  item xs={4} md={4}>
+                { im >= 1 ?
+                    <Item >
+                        <div>
+                            <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
+                        </div>
+                    </Item>
+                    :
+                    ""
+                }
                 
-            <Item >
-                <div>
-                    <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
-                </div>
-            </Item>
-                
+
+                { im >= 2 ?
+                    <Item >
+                        <div>
+                            <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
+                        </div>
+                    </Item>
+                    :
+                    ""
+                }
+
+                { im >= 3 ?
+                    <Item >
+                        <div>
+                            <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
+                        </div>
+                    </Item>
+                    :
+                    ""
+                }
+
             </Grid>
 
             <Grid  item xs={4} md={4}>
+                { im >= 4 ?
+                    <Item >
+                        <div>
+                            <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
+                        </div>
+                    </Item>
+                    :
+                    ""
+                }
 
-            <Item >
-            <div>
-                    <img src={logo} alt={noimage} width="40%" height="40%"/>
-                </div>
-            </Item>
+                { im >= 5 ?
+                    <Item >
+                        <div>
+                            <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
+                        </div>
+                    </Item>
+                    :
+                    ""
+                }
 
-            <Item >
-            <div>
-                    <img src={logo} alt={noimage} width="40%" height="40%"/>
-                </div>
-            </Item>
-
-            <Item >
-            <div>
-                    <img src={logo} alt={noimage} width="40%" height="40%"/>
-                </div>
-            </Item>
-
-            <Item >
-            <div>
-                    <img src={noimage} alt={noimage} width="40%" height="40%"/>
-                </div>
-            </Item>
-            
             </Grid> */}
 
             <Grid  item xs={4} md={4}>
-                <Item >
-                    <div>
-                        <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
-                    </div>
-                </Item>
+                { im >= 1 ?
+                    <Item >
+                        <div>
+                            <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
+                        </div>
+                    </Item>
+                    :
+                    ""
+                }
+                
 
-                <Item >
-                    <div>
-                        <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
-                    </div>
-                </Item>
+                { im >= 3 ?
+                    <Item >
+                        <div>
+                            <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
+                        </div>
+                    </Item>
+                    :
+                    ""
+                }
 
-                <Item >
-                    <div>
-                        <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
-                    </div>
-                </Item>
+                { im >= 5 ?
+                    <Item >
+                        <div>
+                            <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
+                        </div>
+                    </Item>
+                    :
+                    ""
+                }
+
             </Grid>
 
             <Grid  item xs={4} md={4}>
-                <Item >
-                    <div>
-                        <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
-                    </div>
-                </Item>
+                { im >= 2 ?
+                    <Item >
+                        <div>
+                            <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
+                        </div>
+                    </Item>
+                    :
+                    ""
+                }
 
-                <Item >
-                    <div>
-                        <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
-                    </div>
-                </Item>
+                { im >= 4 ?
+                    <Item >
+                        <div>
+                            <a href={logo} > <img src={logo} alt={noimage} width="100%" height="100%"/> </a>
+                        </div>
+                    </Item>
+                    :
+                    ""
+                }
+
             </Grid>
-
            
 
 

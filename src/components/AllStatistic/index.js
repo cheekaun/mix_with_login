@@ -423,8 +423,7 @@ export default function AllStatistic(props) {
                             <div>จำนวนผู้ใช้เพิ่มขึ้นจากปีที่แล้ว</div>
                             <div className="flex items-center"style={{display: 'flex' , flexDirection: 'row'}}>
                                 <div style={{fontSize:50}}><FaUserFriends/></div>
-                                <div style={{fontSize:50,fontWeight: 500}}>100</div>
-                                <div style={{fontSize:50}}> คน </div>
+                                <div style={{fontSize:50,fontWeight: 500}}>100 คน</div>
                             </div>
                             
                         </div>
