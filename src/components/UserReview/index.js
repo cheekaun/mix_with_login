@@ -17,6 +17,8 @@ import axios from 'axios';
 import Rating from '@mui/material/Rating';
 import { Avatar } from '@mui/material';
 
+import { API_Info } from '../../data/API_Info';
+
 export default function UsageHistory (props){
 
 
@@ -36,7 +38,7 @@ export default function UsageHistory (props){
 
     useEffect(() => {
         
-        axios.get('http://localhost:5000/api/GetAllStation?userid='+userid, 
+        axios.get(API_Info[0].Front + API_Info[0].Middle + '/GetAllStation?userid='+userid, 
         )
         .then(respone => {
             setAllstation(respone.data.results)
@@ -50,7 +52,7 @@ export default function UsageHistory (props){
     useEffect(() => {
         
         
-        axios.get('http://localhost:5000/api/ChooseStationReview?userid='+userid +"&stationID="+stationID,
+        axios.get(API_Info[0].Front + API_Info[0].Middle + '/ChooseStationReview?userid='+userid +"&stationID="+stationID,
         )
         .then(respone => {
             setReviewData(respone.data.results)
@@ -58,6 +60,20 @@ export default function UsageHistory (props){
       },[stationID])
 
       console.log(ReviewData);
+
+      const [sc,setsc] = useState([{
+        AVG_S: 0,
+        COUNT_R: 0
+      }])
+
+      useEffect(() => {
+        axios.get(API_Info[0].Front + API_Info[0].Middle + '/CountScoreAndReview?userid='+userid +"&stationID="+stationID,
+        )
+        .then(respone => {
+            setsc(respone.data.results)
+        })
+      },[stationID])
+      console.log(sc);
 
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -181,9 +197,9 @@ export default function UsageHistory (props){
             <div style={{display:'flex', flexDirection:'column', padding:10, overflowY:'scroll',height:700}}>
                     <div style={{fontSize: '20px'}}>คะแนนรีวิว</div>
                     <div style={{display:'flex', flexDirection:'row'}}>
-                        <Rating value={3.5} precision={0.5} sx={{'& .MuiRating-iconFilled': {color: '#9D4EDD', }}} readOnly />
-                        <div style={{paddingLeft:15,color: '#9D4EDD'}}> 3.5/5 </div>
-                        <div style={{paddingLeft:20}}> (123 รีวิว) </div>
+                        <Rating value={sc[0].AVG_S} precision={0.1} sx={{'& .MuiRating-iconFilled': {color: '#9D4EDD', }}} readOnly />
+                        <div style={{paddingLeft:15,color: '#9D4EDD'}}> {sc[0].AVG_S}/5 </div>
+                        <div style={{paddingLeft:20}}> ({sc[0].COUNT_R} รีวิว) </div>
                     </div>
                     
                     <div style={{ height:20 }} > </div>

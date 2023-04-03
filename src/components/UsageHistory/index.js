@@ -17,6 +17,8 @@ import axios from 'axios';
 import { Avatar } from '@mui/material';
 import { BsPlugFill ,BsCurrencyBitcoin } from 'react-icons/bs'
 
+import { API_Info } from '../../data/API_Info';
+
 export default function UsageHistory (props){
 
 
@@ -36,7 +38,7 @@ export default function UsageHistory (props){
 
     useEffect(() => {
         
-        axios.get('http://localhost:5000/api/GetAllStation?userid='+userid,             ///////// ใช้ได้อยู่
+        axios.get(API_Info[0].Front + API_Info[0].Middle +'/GetAllStation?userid='+userid,             ///////// ใช้ได้อยู่
         )
         .then(respone => {
             setAllstation(respone.data.results)
@@ -50,7 +52,7 @@ export default function UsageHistory (props){
 
     useEffect(() => {
         
-        axios.get('http://localhost:5000/api/ChooseStation?userid='+userid +"&stationID="+stationID,             ///////// ใช้ได้อยู่
+        axios.get(API_Info[0].Front + API_Info[0].Middle +'/ChooseStation?userid='+userid +"&stationID="+stationID,             ///////// ใช้ได้อยู่
         )
         .then(respone => {
             setusageData(respone.data.results)

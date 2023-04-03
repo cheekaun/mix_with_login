@@ -1,17 +1,18 @@
 import React from 'react';
 import './App.css';
 import MainPage from './components/MainPage';
+import LoginPage from './components/LoginPage';
 import { BrowserRouter } from 'react-router-dom';
 
 
 function App() {
   return (
     
-    <React.Fragment>
+     <React.Fragment>
       <BrowserRouter>
         <MainPage/>
       </BrowserRouter>
-    </React.Fragment>
+     </React.Fragment>
     
   );
 }

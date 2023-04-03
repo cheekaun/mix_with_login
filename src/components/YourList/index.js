@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useRef} from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
@@ -12,8 +12,10 @@ import axios from 'axios';
 
 import {RiFileList3Line} from 'react-icons/ri'
 
-function YourList (props) {
+import { API_Info } from '../../data/API_Info';
 
+function YourList (props) {
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
   // const userid = 3   //////// Test userID
   const userid = props.userid
   
@@ -34,7 +36,8 @@ const Item = styled(Paper)(({ theme }) => ({
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/GetAllStation?userid='+userid,             ///////// ใช้ได้อยู่
+    // axios.get('http://localhost:5000/plug_mood/GetAllStation?userid='+userid,    ///////// ใช้ได้อยู่
+    axios.get( API_Info[0].Front + API_Info[0].Middle + '/GetAllStation?userid='+userid,            
     )
     .then(respone => {
         setData(respone.data.results)
@@ -77,7 +80,7 @@ const Item = styled(Paper)(({ theme }) => ({
                 สถานีชาร์จของคุณ</div>
                 
                 
-                <div style={{ height: 400, width: '100%', justifyContent: 'center'} }>
+                <div style={{ height: windowSize.current[1]*5/10, width: '100%', justifyContent: 'center'} }>
                 <DataGrid
                     
                     rows={data}
@@ -104,7 +107,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
                 <Item style={{ textAlign: 'center'}}>
                   
-                <div style={{ height: 50, width: '100%', justifyContent: 'center'} }>
+                <div style={{ height: windowSize.current[1]*1/10, width: '100%', justifyContent: 'center'} }>
                 </div>
 
                 <div style={{fontSize: '20px' , color: '#000000'} }>
@@ -113,7 +116,7 @@ const Item = styled(Paper)(({ theme }) => ({
                 
                 <Button variant="contained" color="secondary" size="large">คลิกเพื่อสร้างสถานีชาร์จใหม่</Button>
 
-                <div style={{ height: 50, width: '100%', justifyContent: 'center'} }>
+                <div style={{ height: windowSize.current[1]*1/10, width: '100%', justifyContent: 'center'} }>
                 </div>
                 
                 </Item>

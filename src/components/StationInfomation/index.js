@@ -16,6 +16,8 @@ import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
 import { useParams } from 'react-router-dom'
 
+import { API_Info } from '../../data/API_Info';
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -45,7 +47,7 @@ function StationInfomation(props) {
 
     useEffect(() => {
         // axios.get('http://localhost:5000/api/GetStationInfo?userid='+userid ,
-        axios.get('http://localhost:5000/api/GetStationInfo?userid='+userid +"&stationID="+stationID,            
+        axios.get(API_Info[0].Front + API_Info[0].Middle + '/GetStationInfo?userid='+userid +"&stationID="+stationID,            
         )
         .then(respone => {
             setData(respone.data.results)

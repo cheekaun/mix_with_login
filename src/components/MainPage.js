@@ -1,10 +1,11 @@
-import React, { createContext, useCallback, useState } from "react";
+import React, { createContext, useCallback, useState ,useEffect} from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import NavPage from "./NavPage"
 
 const UseridContext = createContext();
-const MainPage = () => {
+const MainPage = (props) => {
+
     return(
         
         <React.Fragment>

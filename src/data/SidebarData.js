@@ -13,43 +13,11 @@ export const SidebarData = [
         path: "/list",
         icon: <RiFileList3Line />,
       },
-    //   {
-    //     title: "CSS",
-    //     path: "/css",
-    //     icon: <FaIcons.FaCss3Alt />,
-    //   },
-    //   {
-    //     title: "Php",
-    //     path: "/php",
-    //     icon: <FaIcons.FaPhp />,
-    //   },
-    //   {
-    //     title: "Java",
-    //     path: "/java",
-    //     icon: <FaIcons.FaJava />,
-    //   },
-     
-    //   {
-    //     title: "Node",
-    //     path: "/node",
-    //     icon: <FaIcons.FaNodeJs />,
-    //   },
-    //   {
-    //     title: "Figma",
-    //     path: "/figma",
-    //     icon: <FaIcons.FaFigma />,
-    //   },
       {
         title: "ประวัติการใช้งาน",
         path: "/history",
         icon: <MdAccessTime />,
         
       },
-    //   {
-    //     title: "React",
-    //     path: "/react",
-    //     icon: <FaIcons. FaReact />,
-       
-    //   },
 
 ]

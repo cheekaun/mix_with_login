@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { Grid } from '@mui/material';
 import { Button } from '@mui/material';
@@ -8,10 +8,12 @@ import { NavLink } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 
 import { useRef } from 'react';
+import axios from 'axios';
 
+import { API_Info } from "../../data/API_Info";
 
 export default function CreateStationHistoryTable (props){
-
+  
   const userid = props.userid
   console.log(userid)
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
@@ -50,6 +52,20 @@ export default function CreateStationHistoryTable (props){
         `${params.row.Name || ''} ${params.row.lastName || ''}`,
     },*/
   ];
+
+  const [user,setuser] = useState([{
+    username:""
+  }])
+
+  useEffect(() => {
+    axios.get( API_Info[0].Front + API_Info[0].Middle + '/GetUserInfo?userID='+userid,            
+    )
+    .then(respone => {
+        setuser(respone.data.results)
+    })
+  },[])
+
+  console.log(user)
   
   const rows = [
     
@@ -104,7 +120,7 @@ export default function CreateStationHistoryTable (props){
           
           
             <Item style={{ textAlign: 'left'}}>
-            <div style={{fontSize: '50px', color: '#7B2CBF'} }>ยินดีต้อนรับ คุณ ...</div>
+            <div style={{fontSize: '50px', color: '#7B2CBF'} }>ยินดีต้อนรับ คุณ {user[0].username}</div>
             <div style={{fontSize: '30px'} } >สถานะคำร้อง</div>
             <div style={{ width: '100%', justifyContent: 'center'} }>
             <NavLink to={"/home/UserVerifyHistory"} >
@@ -125,7 +141,7 @@ export default function CreateStationHistoryTable (props){
           </Grid>
 
           <Grid item xs={16} md={16}>
-          <div style={{ height: 400, width: '100%', justifyContent: 'center'} }>
+          <div style={{ height: windowSize.current[1]*6/10, width: '100%', justifyContent: 'center'} }>
           <DataGrid
           rows={rows}
           columns={columns}

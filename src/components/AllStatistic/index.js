@@ -20,6 +20,8 @@ import axios from 'axios';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { useRef } from 'react';
 
+import { API_Info } from "../../data/API_Info";
+
 export default function AllStatistic(props) {
 
     // const userid = 3
@@ -38,7 +40,7 @@ export default function AllStatistic(props) {
     const [AllYear, setAllYear] = useState([]);
     useEffect(() => {
         
-        axios.get('http://localhost:5000/api/GetAllYear?userid='+userid,             
+        axios.get(API_Info[0].Front + API_Info[0].Middle +'/GetAllYear?userid='+userid,             
         )
         .then(respone => {
             setAllYear(respone.data.results)
@@ -50,7 +52,7 @@ export default function AllStatistic(props) {
 
     useEffect(() => {
         
-        axios.get('http://localhost:5000/api/GetAllMonth?userid='+userid,            
+        axios.get(API_Info[0].Front + API_Info[0].Middle +'/GetAllMonth?userid='+userid,            
         )
         .then(respone => {
             setAllMonth(respone.data.results)
@@ -66,7 +68,7 @@ export default function AllStatistic(props) {
 
     useEffect(() => {
         
-        axios.get('http://localhost:5000/api/MakeGraph?userid='+userid+'&stationID='+stationID+'&Year='+ChooseYear+'&Month='+ChooseMonth,
+        axios.get(API_Info[0].Front + API_Info[0].Middle +'/MakeGraph?userid='+userid+'&stationID='+stationID+'&Year='+ChooseYear+'&Month='+ChooseMonth,
         )
         .then(respone => {
           setData(respone.data.results)
@@ -112,7 +114,7 @@ export default function AllStatistic(props) {
 
     useEffect(() => {
         
-        axios.get('http://localhost:5000/api/GetAllStation?userid='+userid          ///////// ใช้ได้อยู่
+        axios.get(API_Info[0].Front + API_Info[0].Middle +'/GetAllStation?userid='+userid          ///////// ใช้ได้อยู่
         )
         .then(respone => {
             setAllstation(respone.data.results)
@@ -135,7 +137,7 @@ export default function AllStatistic(props) {
         const [img, setImg] = useState();
 
         const fetchImage = async () => {
-            const res = await fetch('http://localhost:5000/api/test_image');
+            const res = await fetch(API_Info[0].Front + API_Info[0].Middle +'/test_image');
             const imageBlob = await res.blob();
             const imageObjectURL = URL.createObjectURL(imageBlob);
             setImg(imageObjectURL);
@@ -149,21 +151,21 @@ export default function AllStatistic(props) {
 
     const [Statisdata,SetStatisdata] = useState([
         {
-          "Sun_Income": 2325159.78,
-          "Sum_user": 15202,
-          "count_day": 1461
+          "Sun_Income": 0,
+          "Sum_user": 0,
+          "count_day": 0
         }
       ])
 
     useEffect(() => {
-        
-        axios.get('http://localhost:5000/api/SumIncomeAndUser?userID='+userid+'&StationID='+stationID,
+        console.log()
+        axios.get(API_Info[0].Front + API_Info[0].Middle +'/SumIncomeAndUser?userID='+userid+'&StationID='+stationID+'&ChooseYear='+ChooseYear,
         )
         .then(respone => {
           SetStatisdata(respone.data.results)
             
         })
-      },[stationID])
+      },[stationID,ChooseYear])
     console.log(Statisdata)
 
     useEffect(() => {
@@ -203,7 +205,7 @@ export default function AllStatistic(props) {
     }));
 
     
-
+    console.log((sumincome/countday*30).toFixed(2))
     const num = 70
 
     return(
@@ -414,7 +416,7 @@ export default function AllStatistic(props) {
                             <div>รายได้เฉลี่ย</div>
                             <div className="flex items-center"style={{display: 'flex' , flexDirection: 'row'}}>
                                 <div style={{fontSize:50}}><BsCurrencyBitcoin/></div>
-                                <div style={{ fontSize:50,fontWeight: 500}}>{(sumincome/countday*30).toFixed(2)} / เดือน</div>
+                                <div style={{ fontSize:50,fontWeight: 500}}>{(sumincome/countday*30).toFixed(2) === 'NaN'? 0 : (sumincome/countday*30).toFixed(2)} / เดือน</div>
                                 <div style={{ fontSize:50,fontWeight: 500}}> </div>
                             </div>
                             
